@@ -6,6 +6,7 @@
   height: 100vh;
   background: radial-gradient(#ffffff 0%, #0aa7fb 100%);
   text-align: center;
+  overflow-y: auto;
 }
 
 .bodylol{
