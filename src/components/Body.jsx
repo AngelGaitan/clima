@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const Body = () =>{
-
+const Body = ({dark, data2, submit}) =>{
+    
     const apiPassword = "79d3bdc6b53d4af133740dcb82431d13";
+    const [celcius, setCelcius]= useState(0)
     const [data, setData] = useState({})
     useEffect( () => {
         navigator.geolocation.getCurrentPosition((position)=>{
@@ -12,18 +13,23 @@ const Body = () =>{
             .get(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiPassword}`)
             .then(resp => {
                 setData(resp.data)
-                
+                setCelcius((resp.data.main.temp) - 273.15)
             })
             .catch(error => console.error(error))
         })
     },[])  
     
-    
+   if (submit) {
+   
+    setTimeout(() => {
+        setData(data2)  
+    }, 100);
+   }
 
     return(
         <div>
-            <div className="card">
-                <div className="degrees">{Math.round(data.main?.temp)}°</div>
+            <div className={`card ${dark ? "cardlol" : ""}`}>
+                <div className="degrees">{Math.round(celcius)}°</div>
                 <div className="main">
                     <div className="b"><span>VIENTO:</span> <span>{data.wind?.speed} m/s</span> </div>
                     <div className="b"><span>NUBES:</span> <span>{data.clouds?.all}%</span> </div>
@@ -32,11 +38,12 @@ const Body = () =>{
                 <div className="container-icon">
                 </div>
                 <div className="container-label">
-                <div className="location"></div>
-                <div className="description"></div>
+                <div className="location"><span>{data.name},</span> <span>{data.sys?.country}</span></div>
+                <div className="description">{data.weather?.[0]?.description}</div>
                 </div>
             </div>
-            <div><img src="" alt="" /></div>
+            <div className="img-container">
+                <img src={`/iconos/${data.weather?.[0]?.icon}.svg`} alt="" className="img" /></div>
         </div>
     )
 }
