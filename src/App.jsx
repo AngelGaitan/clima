@@ -10,6 +10,8 @@ function App() {
  const [input2, setInput2] = useState("")
  const [data2, setData2] = useState({})
  const [submit, setSubmit] = useState(false)
+ const [celcius, setCelcius] = useState(0)
+
 const dark1 = () =>{
   setDarkOn(!darkOn)
 }
@@ -19,9 +21,12 @@ axios
 .get(`https://api.openweathermap.org/data/2.5/weather?q=${input2}&appid=79d3bdc6b53d4af133740dcb82431d13&lang=es`)
 .then(resp => {
   setData2(resp.data)
+  setCelcius((resp.data.main.temp) - 273.15)
 })
 
 },[input2])
+
+
 
   return (
     <div className={`body ${darkOn ? "bodylol" : "" }`}>
@@ -29,7 +34,7 @@ axios
     <div className='container-header'>
       <div className='input'>
         <form 
-        onSubmit={ev =>{
+        onSubmit={ev => {
           ev.preventDefault()
           setInput2(ev.target.input2.value)
         }}>
@@ -42,6 +47,7 @@ axios
     dark={darkOn}
     data2={data2}
     submit={submit}
+    celcius2={celcius}
     />
     </div>
   )

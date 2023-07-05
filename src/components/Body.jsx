@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
 
-const Body = ({dark, data2, submit}) =>{
+const Body = ({dark, data2, submit, celcius2}) =>{
     
     const apiPassword = "79d3bdc6b53d4af133740dcb82431d13";
-    const [celcius, setCelcius]= useState(0)
     const [data, setData] = useState({})
     useEffect( () => {
         navigator.geolocation.getCurrentPosition((position)=>{
@@ -13,7 +12,6 @@ const Body = ({dark, data2, submit}) =>{
             .get(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiPassword}`)
             .then(resp => {
                 setData(resp.data)
-                setCelcius((resp.data.main.temp) - 273.15)
             })
             .catch(error => console.error(error))
         })
@@ -29,7 +27,7 @@ const Body = ({dark, data2, submit}) =>{
     return(
         <div>
             <div className={`card ${dark ? "cardlol" : ""}`}>
-                <div className="degrees">{Math.round(celcius)}°</div>
+                <div className="degrees">{Math.round(celcius2)}°</div>
                 <div className="main">
                     <div className="b"><span>VIENTO:</span> <span>{data.wind?.speed} m/s</span> </div>
                     <div className="b"><span>NUBES:</span> <span>{data.clouds?.all}%</span> </div>
