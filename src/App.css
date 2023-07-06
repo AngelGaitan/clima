@@ -40,7 +40,6 @@ padding: 10px;
 
 
 .btn-container{
-
   margin-right: 25px;
   display: flex;
   justify-content: end;
@@ -102,12 +101,26 @@ padding: 10px;
 
 .img-containecar{
   height: 10px;
+  margin: 0 auto;
 }
 
 .img{
   width: 170px;
   height: 170px;
   position: relative;
-  left: 90px;
+  left: 150px;
   bottom: 250px;
+}
+
+.btnF{
+  position: relative;
+  margin-top: 30px;
+  right: 90px;
+  height: 40px;
+border-radius: 20px;
+}
+.bgButton{
+  margin: 0 auto;
+  text-align: center;
+  
 }

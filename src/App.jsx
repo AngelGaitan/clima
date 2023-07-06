@@ -10,7 +10,7 @@ function App() {
  const [input2, setInput2] = useState("")
  const [data2, setData2] = useState({})
  const [submit, setSubmit] = useState(false)
- const [celcius, setCelcius] = useState(0)
+
 
 const dark1 = () =>{
   setDarkOn(!darkOn)
@@ -18,10 +18,10 @@ const dark1 = () =>{
 
 useEffect(()=>{
 axios
-.get(`https://api.openweathermap.org/data/2.5/weather?q=${input2}&appid=79d3bdc6b53d4af133740dcb82431d13&lang=es`)
+.get(`https://api.openweathermap.org/data/2.5/weather?q=${input2 || "sogamoso"}&appid=79d3bdc6b53d4af133740dcb82431d13&iun`)
 .then(resp => {
   setData2(resp.data)
-  setCelcius((resp.data.main.temp) - 273.15)
+  
 })
 
 },[input2])
@@ -46,10 +46,10 @@ axios
     <Body
     dark={darkOn}
     data2={data2}
-    submit={submit}
-    celcius2={celcius}
+    submit={submit} 
     />
-    </div>
+      </div>
+
   )
 }
 
